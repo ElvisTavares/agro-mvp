@@ -1,11 +1,11 @@
 const TelegramBot = require("node-telegram-bot-api");
 
 // === CONFIGURAÇÕES (Preencha aqui) ===
-const TELEGRAM_TOKEN = "8637646594:AAHeS2vX1zp8CwxfBT7yEGzz4h5xoberMV8";
-const OPENCLAW_URL = "http://192.168.2.200:8080/v1/chat/completions";
+const TELEGRAM_TOKEN = "";
+const OPENCLAW_URL = "";
 const MODEL_NAME = "mistral"; // Nome do modelo configurado no seu OpenClaw
 const WEBHOOK_URL = "http://localhost:3000/api/webhook"; // Sua API local
-const OPENCLAW_API_KEY = "a234983acc535122c1d4a9885361d715b5dd5bcb0aa5818c";
+const OPENCLAW_API_KEY = "";
 // =====================================
 
 const bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true });
