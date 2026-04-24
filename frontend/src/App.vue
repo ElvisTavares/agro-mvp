@@ -1,78 +1,59 @@
 <template>
-  <div class="p-8 bg-gray-50 min-h-screen">
-    <h1 class="text-2xl font-bold mb-6">Painel do Agronegócio</h1>
-
-    <div class="bg-white rounded-lg shadow overflow-hidden">
-      <table class="min-w-full">
-        <thead class="bg-gray-100">
-          <tr>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">
-              Atividade
-            </th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">
-              Produto
-            </th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">
-              Quantidade
-            </th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">
-              Lavoura
-            </th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200">
-          <tr
-            v-for="item in atividades"
-            :key="item.id"
-            class="hover:bg-gray-50"
-          >
-            <td class="px-6 py-4">
-              <span
-                class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold"
-              >
-                {{ item.atividade }}
-              </span>
-            </td>
-            <td class="px-6 py-4 font-medium text-gray-900">
-              {{ item.produto }}
-            </td>
-            <td class="px-6 py-4 text-gray-600">
-              {{ item.quantidade }} {{ item.unidade_medida }}
-            </td>
-            <td class="px-6 py-4 text-gray-600">{{ item.lavoura }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="flex h-screen bg-gray-50 overflow-hidden font-sans">
+    <!-- Componente de Menu (Sidebar p/ Desktop / Drawer p/ Mobile) -->
+    
+    <!-- Mobile Hamburger Header -->
+    <div class="md:hidden fixed top-0 w-full bg-[#0a0f1d] text-white flex items-center justify-between px-4 py-3 z-40 border-b border-[#1a2235]">
+      <h1 class="font-black tracking-tight uppercase text-lg">Agritech</h1>
+      <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 focus:outline-none focus:ring-2 focus:ring-[#00c569] rounded">
+        <MenuIcon class="w-6 h-6" />
+      </button>
     </div>
+
+    <!-- Sidebar -->
+    <div :class="[
+      'fixed inset-y-0 left-0 z-50 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 flex-shrink-0',
+      mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+    ]">
+      <AppMenu @item-clicked="mobileMenuOpen = false" />
+    </div>
+
+    <!-- Overlay Escuro para Mobile quando Menu Aberto -->
+    <div 
+      v-if="mobileMenuOpen" 
+      @click="mobileMenuOpen = false"
+      class="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm transition-opacity"
+    ></div>
+
+    <!-- Main Content Layout -->
+    <main class="flex-1 overflow-y-auto w-full pt-16 md:pt-0">
+      <div class="p-6 md:p-10 max-w-7xl mx-auto">
+        <router-view v-slot="{ Component }">
+          <transition name="fade" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </router-view>
+      </div>
+    </main>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref } from 'vue';
+import { Menu as MenuIcon } from 'lucide-vue-next';
+import AppMenu from './components/AppMenu.vue';
 
-const atividades = ref([]);
-let loopDeAtualizacao;
-
-const carregarDados = async () => {
-  try {
-    const response = await fetch("http://localhost:3000/api/atividades");
-    atividades.value = await response.json();
-  } catch (error) {
-    console.error("Erro ao buscar dados:", error);
-  }
-};
-
-onMounted(() => {
-  carregarDados(); // Carrega a primeira vez
-
-  // O TRUQUE DO VÍDEO: Fica perguntando pra API a cada 2 segundos
-  loopDeAtualizacao = setInterval(() => {
-    carregarDados();
-  }, 2000);
-});
-
-onUnmounted(() => {
-  // Limpa o loop se sair da tela para não vazar memória
-  clearInterval(loopDeAtualizacao);
-});
+const mobileMenuOpen = ref(false);
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
