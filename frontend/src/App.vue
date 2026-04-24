@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen bg-gray-50 overflow-hidden font-sans">
+  <div class="flex h-screen bg-[#0f1115] overflow-hidden font-sans">
     <!-- Componente de Menu (Sidebar p/ Desktop / Drawer p/ Mobile) -->
     
     <!-- Mobile Hamburger Header -->
@@ -27,7 +27,7 @@
 
     <!-- Main Content Layout -->
     <main class="flex-1 overflow-y-auto w-full pt-16 md:pt-0">
-      <div class="p-6 md:p-10 max-w-7xl mx-auto">
+      <div class="p-4 md:p-6 w-full mx-auto">
         <router-view v-slot="{ Component }">
           <transition name="fade" mode="out-in">
             <component :is="Component" />
