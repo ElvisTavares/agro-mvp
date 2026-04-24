@@ -1,0 +1,42 @@
+[
+  {
+    "atividade": "Colheita",
+    "produto": null,
+    "quantidade": 30,
+    "unidade_medida": "hectares",
+    "lavoura": "Feijão",
+    "id": 1776979483151
+  },
+  {
+    "atividade": "Plantio",
+    "produto": "Arroz",
+    "quantidade": 50,
+    "unidade_medida": "hectares",
+    "lavoura": "Fazenda 0035",
+    "id": 1776809094535
+  },
+  {
+    "atividade": "Plantio",
+    "produto": "Arroz",
+    "quantidade": 500,
+    "unidade_medida": "hectares",
+    "lavoura": "Fazenda 0034",
+    "id": 1776786870306
+  },
+  {
+    "atividade": "Plantio",
+    "produto": "Milho",
+    "quantidade": 200,
+    "unidade_medida": "sacas",
+    "lavoura": "Fazenda Leste",
+    "id": 1776786468475
+  },
+  {
+    "id": 1684320000000,
+    "atividade": "Colheita",
+    "produto": "Soja",
+    "quantidade": 500,
+    "unidade_medida": "sacas",
+    "lavoura": "Fazenda Sul"
+  }
+]
